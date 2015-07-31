@@ -24,7 +24,7 @@ public:
     virtual void draw(Renderer *renderer, const Mat4& transform, uint32_t flags);
     
     CREATE_FUNC(ShaderNode);
-private:
+protected:
     Texture2D* _texture;
     RenderTexture* _rendertTexture;
     CustomCommand _customCommand;

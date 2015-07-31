@@ -1,5 +1,7 @@
 #include "HelloWorldScene.h"
 #include "ShaderNode.h"
+#include "HBlurNode.h"
+#include "VBlurNode.h"
 
 USING_NS_CC;
 
@@ -26,14 +28,18 @@ bool HelloWorld::init()
         return false;
     }
     
-    ShaderNode* node = ShaderNode::create();
+    VBlurNode* node = VBlurNode::create();
     addChild(node);
     node->setPosition(100, 100);
     
+    HBlurNode* node2 = HBlurNode::create();
+    node->addChild(node2);
+    node2->setPosition(0, 0);
+    
     Sprite* sprite = Sprite::create("HelloWorld.png");
     sprite->setAnchorPoint(Point::ZERO);
-    sprite->setPosition(-100, -100);
-    node->addChild(sprite);
+    sprite->setPosition(200, 200);
+    node2->addChild(sprite);
     
     return true;
 }
