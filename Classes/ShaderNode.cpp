@@ -19,19 +19,28 @@ ShaderNode::~ShaderNode()
     CC_SAFE_RELEASE(_rendertTexture);
 }
 
-bool ShaderNode::init()
+ShaderNode* ShaderNode::createWithWH(float w, float h)
+{
+    ShaderNode* result = new ShaderNode();
+    if (result && result->initWithWH(w, h))
+        result->retain();
+    else {
+        delete result;
+        result = nullptr;
+    }
+    return result;
+}
+
+bool ShaderNode::initWithWH(float w, float h)
 {
     if (!Node::init())
         return false;
     
-    Size winsize = Director::getInstance()->getWinSize();
-    
-    _rendertTexture = RenderTexture::create(winsize.width, winsize.height);
+    _rendertTexture = RenderTexture::create(w, h);
     _rendertTexture->retain();
     
-    //_texture = Director::getInstance()->getTextureCache()->addImage("HelloWorld.png");
-    //_texture->retain();
     _texture = _rendertTexture->getSprite()->getTexture();
+    _texture->retain();
     
     Size size = _texture->getContentSizeInPixels();
     _vertices.push_back(Point::ZERO);
@@ -46,7 +55,16 @@ bool ShaderNode::init()
     
     setGLProgram(GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE));
     
+    Node::setContentSize(Size(w, h));
+    
     return true;
+}
+
+void ShaderNode::setContentSize(const Size& contentSize)
+{
+    Node::setContentSize(contentSize);
+    
+    updateRenderTexture();
 }
 
 void ShaderNode::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t parentFlags)
@@ -99,3 +117,23 @@ void ShaderNode::draw(Renderer *renderer, const Mat4& transform, uint32_t flags)
     };
     Director::getInstance()->getRenderer()->addCommand(&_customCommand);
 }
+
+void ShaderNode::updateRenderTexture()
+{
+    if (_rendertTexture)
+    {
+        CC_SAFE_RELEASE_NULL(_texture);
+        CC_SAFE_RELEASE_NULL(_rendertTexture);
+    }
+    
+    Size size = getContentSize();
+    _rendertTexture = RenderTexture::create(size.width, size.height);
+    _rendertTexture->retain();
+    
+    _texture = _rendertTexture->getSprite()->getTexture();
+    _texture->retain();
+}
+
+
+
+

@@ -19,12 +19,18 @@ class ShaderNode : public Node
 public:
     ShaderNode();
     ~ShaderNode();
-    virtual bool init();
+    virtual bool initWithWH(float w, float h);
     virtual void visit(Renderer *renderer, const Mat4& parentTransform, uint32_t parentFlags);
     virtual void draw(Renderer *renderer, const Mat4& transform, uint32_t flags);
+    virtual void setContentSize(const Size& contentSize);
     
-    CREATE_FUNC(ShaderNode);
+    Texture2D* getTexture() { return _texture; }
+    RenderTexture* getRenderer() { return _rendertTexture; }
+    
+    static ShaderNode* createWithWH(float w, float h);
 protected:
+    void updateRenderTexture();
+    
     Texture2D* _texture;
     RenderTexture* _rendertTexture;
     CustomCommand _customCommand;

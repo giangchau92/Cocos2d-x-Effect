@@ -365,8 +365,6 @@
 			isa = PBXGroup;
 			children = (
 				83E520401B6B759100F73886 /* BlurNode */,
-				83E5203D1B6B6F7F00F73886 /* BlurNode.cpp */,
-				83E5203E1B6B6F7F00F73886 /* BlurNode.h */,
 			);
 			name = Shader;
 			sourceTree = "<group>";
@@ -374,6 +372,8 @@
 		83E520401B6B759100F73886 /* BlurNode */ = {
 			isa = PBXGroup;
 			children = (
+				83E5203D1B6B6F7F00F73886 /* BlurNode.cpp */,
+				83E5203E1B6B6F7F00F73886 /* BlurNode.h */,
 				83CDB4561B6A170000582A27 /* ShaderNode.cpp */,
 				83CDB4571B6A170000582A27 /* ShaderNode.h */,
 				83E520411B6B75D400F73886 /* HBlurNode.cpp */,

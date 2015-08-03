@@ -8,23 +8,21 @@
 
 #include "HBlurNode.h"
 
-bool HBlurNode::init()
+bool HBlurNode::initWithWH(float w, float h)
 {
-    if (!ShaderNode::init())
+    if (!ShaderNode::initWithWH(w, h))
         return false;
     
     GLProgram* program = GLProgram::createWithFilenames("Shaders/ccShader_blur.vert", "Shaders/Blur_horizontal_sampling.frag");
     setGLProgram(program);
     
-    setContentSize(_texture->getContentSizeInPixels());
-    
     return true;
 }
 
-HBlurNode* HBlurNode::create()
+HBlurNode* HBlurNode::createWithWH(float w, float h)
 {
     HBlurNode* result = new HBlurNode();
-    if (result && result->init())
+    if (result && result->initWithWH(w, h))
         result->retain();
     else {
         delete result;
@@ -39,7 +37,7 @@ void HBlurNode::draw(Renderer *renderer, const Mat4& transform, uint32_t flags)
     _customCommand.func = [=]() {
         CC_NODE_DRAW_SETUP();
         GLint uResolution = getGLProgram()->getUniformLocation("u_resolution");
-        Size winSize = this->getBoundingBox().size;
+        Size winSize = Director::getInstance()->getWinSize();
         glUniform2f(uResolution, winSize.width, winSize.height);
         GL::bindTexture2D(_texture->getName());
         GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION | GL::VERTEX_ATTRIB_FLAG_TEX_COORD);

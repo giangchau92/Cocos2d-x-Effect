@@ -28,18 +28,35 @@ bool HelloWorld::init()
         return false;
     }
     
-    VBlurNode* node = VBlurNode::create();
-    addChild(node);
-    node->setPosition(100, 100);
-    
-    HBlurNode* node2 = HBlurNode::create();
-    node->addChild(node2);
-    node2->setPosition(0, 0);
-    
     Sprite* sprite = Sprite::create("HelloWorld.png");
     sprite->setAnchorPoint(Point::ZERO);
-    sprite->setPosition(200, 200);
-    node2->addChild(sprite);
+    sprite->setPosition(0, 0);
+    
+    Size size = sprite->getContentSize();
+    Size winsize = Director::getInstance()->getWinSize();
+    //size = winsize;
+    
+    HBlurNode* node = HBlurNode::createWithWH(size.width, size.height);
+    //node->addChild(sprite);
+    node->setPosition(0, 0);
+    
+    
+    ShaderNode* shader = ShaderNode::createWithWH(size.width, size.height);
+    shader->addChild(sprite);
+    //addChild(shader);
+    
+    ShaderNode* shader2 = ShaderNode::createWithWH(winsize.width, winsize.height);
+    shader2->addChild(shader);
+    addChild(shader2);
+    
+    //addChild(node->getRenderer());
+    
+    //HBlurNode* node2 = HBlurNode::createWithWH(size.width, size.height);
+    //node2->addChild(node);
+    //node2->setPosition(0, 0);
+    
+    
+    //addChild(node2);
     
     return true;
 }
