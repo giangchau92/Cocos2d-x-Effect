@@ -8,14 +8,50 @@
 
 #include "BlurNode.h"
 
-bool BlurNode::init()
+BlurNode::BlurNode()
+: _hnode(nullptr), _vnode(nullptr)
 {
-    if (!ShaderNode::init())
+}
+
+BlurNode::~BlurNode()
+{
+    CC_SAFE_RELEASE(_hnode);
+    CC_SAFE_RELEASE(_vnode);
+}
+
+bool BlurNode::initWithWH(float w, float h, unsigned int n)
+{
+    if (!Node::init())
         return false;
     
-    //GLProgram* program = GLProgram::createWithFilenames(const std::string &vShaderFilename, const std::string &fShaderFilename)
+    _hnode = HBlurNode::createWithWH(w, h, n);
+    if (!_hnode)
+        return false;
+    _hnode->retain();
+    Node::addChild(_hnode);
     
-    //setGLProgram(GLProgramCache::loadDefaultGLProgram(<#cocos2d::GLProgram *program#>, <#int type#>))
+    _vnode = VBlurNode::createWithWH(w, h, n);
+    if (!_vnode)
+        return false;
+    _vnode->retain();
+    _hnode->addChild(_vnode);
     
     return true;
+}
+
+BlurNode* BlurNode::createWithWH(float w, float h, unsigned int n)
+{
+    BlurNode* result = new BlurNode();
+    if (result && result->initWithWH(w, h, n))
+        result->autorelease();
+    else {
+        delete result;
+        result = nullptr;
+    }
+    return result;
+}
+
+void BlurNode::addChild(Node * child)
+{
+    _vnode->addChild(child);
 }

@@ -11,6 +11,7 @@
 
 #include <cocos2d.h>
 #include <vector>
+#include "RenderTexture.h"
 
 USING_NS_CC;
 
@@ -24,15 +25,17 @@ public:
     virtual void draw(Renderer *renderer, const Mat4& transform, uint32_t flags);
     virtual void setContentSize(const Size& contentSize);
     
+    void saveTexture(const std::string& filename);
+    
     Texture2D* getTexture() { return _texture; }
-    RenderTexture* getRenderer() { return _rendertTexture; }
+    chaung::RenderTexture* getRenderer() { return _rendertTexture; }
     
     static ShaderNode* createWithWH(float w, float h);
 protected:
     void updateRenderTexture();
     
     Texture2D* _texture;
-    RenderTexture* _rendertTexture;
+    chaung::RenderTexture* _rendertTexture;
     CustomCommand _customCommand;
     std::vector<Point> _vertices;
     std::vector<Vec2> _texCoords;

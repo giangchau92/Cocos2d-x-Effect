@@ -10,12 +10,21 @@
 #define __CocosEffect__BlurNode__
 
 #include "ShaderNode.h"
+#include "HBlurNode.h"
+#include "VBlurNode.h"
 
-class BlurNode : public ShaderNode
+class BlurNode : public Node
 {
 public:
-    virtual bool init();
-    CREATE_FUNC(BlurNode);
+    BlurNode();
+    ~BlurNode();
+    virtual bool initWithWH(float w, float h, unsigned int n);
+    virtual void addChild(Node * child);
+    
+    static BlurNode* createWithWH(float w, float h, unsigned int n);
+private:
+    HBlurNode* _hnode;
+    VBlurNode* _vnode;
 };
 
 #endif /* defined(__CocosEffect__BlurNode__) */

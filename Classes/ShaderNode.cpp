@@ -23,7 +23,7 @@ ShaderNode* ShaderNode::createWithWH(float w, float h)
 {
     ShaderNode* result = new ShaderNode();
     if (result && result->initWithWH(w, h))
-        result->retain();
+        result->autorelease();
     else {
         delete result;
         result = nullptr;
@@ -36,7 +36,8 @@ bool ShaderNode::initWithWH(float w, float h)
     if (!Node::init())
         return false;
     
-    _rendertTexture = RenderTexture::create(w, h);
+    _rendertTexture = chaung::RenderTexture::create(w, h);
+    //_rendertTexture->setKeepMatrix(true);
     _rendertTexture->retain();
     
     _texture = _rendertTexture->getSprite()->getTexture();
@@ -127,7 +128,8 @@ void ShaderNode::updateRenderTexture()
     }
     
     Size size = getContentSize();
-    _rendertTexture = RenderTexture::create(size.width, size.height);
+    _rendertTexture = chaung::RenderTexture::create(size.width, size.height);
+    _rendertTexture->setKeepMatrix(true);
     _rendertTexture->retain();
     
     _texture = _rendertTexture->getSprite()->getTexture();
@@ -135,5 +137,12 @@ void ShaderNode::updateRenderTexture()
 }
 
 
-
+void ShaderNode::saveTexture(const std::string& filename)
+{
+    bool check = _rendertTexture->saveToFile(filename);
+    if (check)
+        CCLOG("Capture success");
+    else
+        CCLOG("Capture false");
+}
 

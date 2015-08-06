@@ -8,7 +8,7 @@
 
 #include "HBlurNode.h"
 
-bool HBlurNode::initWithWH(float w, float h)
+bool HBlurNode::initWithWH(float w, float h, unsigned int n)
 {
     if (!ShaderNode::initWithWH(w, h))
         return false;
@@ -16,14 +16,16 @@ bool HBlurNode::initWithWH(float w, float h)
     GLProgram* program = GLProgram::createWithFilenames("Shaders/ccShader_blur.vert", "Shaders/Blur_horizontal_sampling.frag");
     setGLProgram(program);
     
+    _n = n;
+    
     return true;
 }
 
-HBlurNode* HBlurNode::createWithWH(float w, float h)
+HBlurNode* HBlurNode::createWithWH(float w, float h, unsigned int n)
 {
     HBlurNode* result = new HBlurNode();
-    if (result && result->initWithWH(w, h))
-        result->retain();
+    if (result && result->initWithWH(w, h, n))
+        result->autorelease();
     else {
         delete result;
         result = nullptr;

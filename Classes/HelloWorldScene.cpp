@@ -1,7 +1,6 @@
 #include "HelloWorldScene.h"
 #include "ShaderNode.h"
-#include "HBlurNode.h"
-#include "VBlurNode.h"
+#include "BlurNode.h"
 
 USING_NS_CC;
 
@@ -28,35 +27,48 @@ bool HelloWorld::init()
         return false;
     }
     
+    // init event
+    auto touchListener = EventListenerTouchOneByOne::create();
+    
+    touchListener->onTouchBegan = [=](Touch*, Event*)->bool {
+        
+        std::string path = FileUtils::getInstance()->getWritablePath();
+        //_shaderNode->saveTexture("capture.png");
+        int a;
+        a = 1;
+        return true;
+    };
+    
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+    
     Sprite* sprite = Sprite::create("HelloWorld.png");
     sprite->setAnchorPoint(Point::ZERO);
     sprite->setPosition(0, 0);
     
+    Sprite* sprite2 = Sprite::create("HelloWorld.png");
+    sprite2->setAnchorPoint(Point::ZERO);
+    sprite2->setPosition(0, 0);
+    
     Size size = sprite->getContentSize();
     Size winsize = Director::getInstance()->getWinSize();
-    //size = winsize;
     
-    HBlurNode* node = HBlurNode::createWithWH(size.width, size.height);
-    //node->addChild(sprite);
-    node->setPosition(0, 0);
+    BlurNode* node = BlurNode::createWithWH(size.width, size.height, 10);
+    addChild(node);
+    node->setPosition(600, 100);
+    node->addChild(sprite);
     
+//    HBlurNode* hNode = HBlurNode::createWithWH(size.width, size.height, 10);
+//    addChild(hNode);
+//    hNode->setPosition(100, 100);
+//    
+//    VBlurNode* vNode = VBlurNode::createWithWH(size.width, size.height, 10);
+//    hNode->addChild(vNode);
+//    //vNode->addChild(sprite);
     
-    ShaderNode* shader = ShaderNode::createWithWH(size.width, size.height);
-    shader->addChild(sprite);
-    //addChild(shader);
-    
-    ShaderNode* shader2 = ShaderNode::createWithWH(winsize.width, winsize.height);
-    shader2->addChild(shader);
-    addChild(shader2);
-    
-    //addChild(node->getRenderer());
-    
-    //HBlurNode* node2 = HBlurNode::createWithWH(size.width, size.height);
-    //node2->addChild(node);
-    //node2->setPosition(0, 0);
-    
-    
-    //addChild(node2);
+    ShaderNode* shaderNode = ShaderNode::createWithWH(size.width, size.height);
+    addChild(shaderNode);
+    shaderNode->addChild(sprite2);
+    shaderNode->setPosition(100, 100);
     
     return true;
 }

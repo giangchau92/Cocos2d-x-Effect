@@ -14,10 +14,13 @@
 class VBlurNode : public ShaderNode
 {
 public:
-    virtual bool initWithWH(float w, float h);
+    virtual bool initWithWH(float w, float h, unsigned int n);
     virtual void draw(Renderer *renderer, const Mat4& transform, uint32_t flags);
     
-    static VBlurNode* createWithWH(float w, float h);
+    static VBlurNode* createWithWH(float w, float h, unsigned int n);
+    
+private:
+    unsigned int _n;
 };
 
 #endif /* defined(__CocosEffect__VBlurNode__) */

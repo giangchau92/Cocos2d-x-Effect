@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+class ShaderNode;
+
 class HelloWorld : public cocos2d::Layer
 {
 public:
@@ -17,6 +19,8 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+    
+    ShaderNode* _shaderNode;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

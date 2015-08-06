@@ -8,7 +8,7 @@
 
 #include "VBlurNode.h"
 
-bool VBlurNode::initWithWH(float w, float h)
+bool VBlurNode::initWithWH(float w, float h, unsigned int n)
 {
     if (!ShaderNode::initWithWH(w, h))
         return false;
@@ -16,14 +16,16 @@ bool VBlurNode::initWithWH(float w, float h)
     GLProgram* program = GLProgram::createWithFilenames("Shaders/ccShader_blur.vert", "Shaders/Blur_vertical_sampling.frag");
     setGLProgram(program);
     
+    _n = n;
+    
     return true;
 }
 
-VBlurNode* VBlurNode::createWithWH(float w, float h)
+VBlurNode* VBlurNode::createWithWH(float w, float h, unsigned int n)
 {
     VBlurNode* result = new VBlurNode();
-    if (result && result->initWithWH(w, h))
-        result->retain();
+    if (result && result->initWithWH(w, h, n))
+        result->autorelease();
     else {
         delete result;
         result = nullptr;

@@ -60,6 +60,7 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		83AF8D431B71E52F0011744C /* RenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83AF8D411B71E52F0011744C /* RenderTexture.cpp */; };
 		83CDB4581B6A170000582A27 /* ShaderNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83CDB4561B6A170000582A27 /* ShaderNode.cpp */; };
 		83E5203F1B6B6F7F00F73886 /* BlurNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83E5203D1B6B6F7F00F73886 /* BlurNode.cpp */; };
 		83E520431B6B75D400F73886 /* HBlurNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83E520411B6B75D400F73886 /* HBlurNode.cpp */; };
@@ -157,6 +158,8 @@
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		83AF8D411B71E52F0011744C /* RenderTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderTexture.cpp; sourceTree = "<group>"; };
+		83AF8D421B71E52F0011744C /* RenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderTexture.h; sourceTree = "<group>"; };
 		83CDB4561B6A170000582A27 /* ShaderNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderNode.cpp; sourceTree = "<group>"; };
 		83CDB4571B6A170000582A27 /* ShaderNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderNode.h; sourceTree = "<group>"; };
 		83E5203D1B6B6F7F00F73886 /* BlurNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlurNode.cpp; sourceTree = "<group>"; };
@@ -364,6 +367,8 @@
 		83CDB4551B6A15DC00582A27 /* Shader */ = {
 			isa = PBXGroup;
 			children = (
+				83AF8D411B71E52F0011744C /* RenderTexture.cpp */,
+				83AF8D421B71E52F0011744C /* RenderTexture.h */,
 				83E520401B6B759100F73886 /* BlurNode */,
 			);
 			name = Shader;
@@ -538,6 +543,7 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				83CDB4581B6A170000582A27 /* ShaderNode.cpp in Sources */,
+				83AF8D431B71E52F0011744C /* RenderTexture.cpp in Sources */,
 				83E5204D1B6B7E6C00F73886 /* VBlurNode.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
