@@ -21,7 +21,7 @@ BlurNode::~BlurNode()
 
 bool BlurNode::initWithWH(float w, float h, unsigned int n)
 {
-    if (!Node::init())
+    if (!ShaderNode::initWithWH(w, h))
         return false;
     
     _hnode = HBlurNode::createWithWH(w, h, n);
@@ -35,6 +35,7 @@ bool BlurNode::initWithWH(float w, float h, unsigned int n)
         return false;
     _vnode->retain();
     _hnode->addChild(_vnode);
+    //_hnode->getRenderer()->setKeepMatrix(true);
     
     return true;
 }

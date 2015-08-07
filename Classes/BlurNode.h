@@ -13,7 +13,7 @@
 #include "HBlurNode.h"
 #include "VBlurNode.h"
 
-class BlurNode : public Node
+class BlurNode : public ShaderNode
 {
 public:
     BlurNode();

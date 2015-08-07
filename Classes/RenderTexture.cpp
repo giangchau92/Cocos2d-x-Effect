@@ -548,6 +548,31 @@ namespace chaung {
         _oldTransMatrix = director->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
         director->loadMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, _transformMatrix);
         
+        if(!_keepMatrix)
+        {
+            director->setProjection(director->getProjection());
+            const Size& texSize = _texture->getContentSizeInPixels();
+            
+            // Calculate the adjustment ratios based on the old and new projections
+            Size fullSize = director->getWinSizeInPixels();
+            
+            Size size;
+            if (ViewportStack::getInstance()->getViewSize() == 0)
+                size = director->getWinSizeInPixels();
+            else
+                size = ViewportStack::getInstance()->getVirtualView();
+            ViewportStack::getInstance()->pushVirtualView(texSize);
+            
+//            float widthRatio = size.width / fullSize.width;
+//            float heightRatio = size.height / fullSize.height;
+            float widthRatio = fullSize.width / size.width;
+            float heightRatio = fullSize.height / size.height;
+            
+            
+            Mat4 orthoMatrix;
+            Mat4::createOrthographicOffCenter((float)-1.0 / widthRatio, (float)1.0 / widthRatio, (float)-1.0 / heightRatio, (float)1.0 / heightRatio, -1, 1, &orthoMatrix);
+            director->multiplyMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION, orthoMatrix);
+        }
         
         //calculate viewport
         {
@@ -696,6 +721,8 @@ namespace chaung {
             const Size& texSize = _texture->getContentSizeInPixels();
             
             // Calculate the adjustment ratios based on the old and new projections
+            Size fullSize = director->getWinSizeInPixels();
+            
             Size size;
             if (ViewportStack::getInstance()->getViewSize() == 0)
                 size = director->getWinSizeInPixels();
@@ -703,8 +730,11 @@ namespace chaung {
                 size = ViewportStack::getInstance()->getVirtualView();
             ViewportStack::getInstance()->pushVirtualView(texSize);
             
-            float widthRatio = size.width / texSize.width;
-            float heightRatio = size.height / texSize.height;
+//            float widthRatio = size.width / texSize.width;
+//            float heightRatio = size.height / texSize.height;
+            
+            float widthRatio = fullSize.width / size.width;
+            float heightRatio = fullSize.height / size.height;
             
             //if (widthRatio != 1)
             //{

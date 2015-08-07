@@ -47,28 +47,43 @@ bool HelloWorld::init()
     
     Sprite* sprite2 = Sprite::create("HelloWorld.png");
     sprite2->setAnchorPoint(Point::ZERO);
-    sprite2->setPosition(0, 0);
+    sprite2->setPosition(100, 100);
+    //sprite2->setScale(1.0/2.7, 1.0/2.7);
+    addChild(sprite2);
     
     Size size = sprite->getContentSize();
     Size winsize = Director::getInstance()->getWinSize();
     
-    BlurNode* node = BlurNode::createWithWH(size.width, size.height, 10);
-    addChild(node);
-    node->setPosition(600, 100);
-    node->addChild(sprite);
+//    BlurNode* node = BlurNode::createWithWH(size.width, size.height, 10);
+//    addChild(node);
+//    node->setPosition(600, 100);
+//    node->addChild(sprite);
     
 //    HBlurNode* hNode = HBlurNode::createWithWH(size.width, size.height, 10);
 //    addChild(hNode);
-//    hNode->setPosition(100, 100);
+//    hNode->setPosition(600, 100);
 //    
 //    VBlurNode* vNode = VBlurNode::createWithWH(size.width, size.height, 10);
 //    hNode->addChild(vNode);
-//    //vNode->addChild(sprite);
+//    vNode->addChild(sprite);
     
-    ShaderNode* shaderNode = ShaderNode::createWithWH(size.width, size.height);
-    addChild(shaderNode);
-    shaderNode->addChild(sprite2);
-    shaderNode->setPosition(100, 100);
+//    ShaderNode* shaderNode1 = ShaderNode::createWithWH(size.width, size.height);
+//    addChild(shaderNode1);
+//    shaderNode1->setPosition(600, 100);
+//    
+//    ShaderNode* shaderNode2 = ShaderNode::createWithWH(size.width, size.height);
+//    shaderNode2->addChild(sprite);
+//    
+//    shaderNode1->addChild(shaderNode2);
+    //shaderNode1->getRenderer()->setKeepMatrix(true);
+    
+    
+    ShaderNode* shader3 = ShaderNode::createWithWH(size.width, size.height);
+    addChild(shader3);
+    shader3->setPosition(600, 100);
+    //shader3->getRenderer()->setKeepMatrix(true);
+    shader3->addChild(sprite);
+    
     
     return true;
 }
